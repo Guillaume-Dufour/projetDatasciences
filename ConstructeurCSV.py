@@ -33,4 +33,7 @@ def addWeekDay (csvIn, csvOut) :
     df['weekDay'] = df.apply(lambda row: (datetime.fromisoformat(row.Date)).strftime("%A"), axis=1)
     df.to_csv(csvOut, index=False)
 
-
+def addMonth (csvIn, csvOut) :
+    df = pandas.read_csv(csvIn, sep=',', low_memory=False)
+    df['month'] = df.apply(lambda row: (datetime.fromisoformat(row.Date)).strftime("%B"), axis=1)
+    df.to_csv(csvOut, index=False)
