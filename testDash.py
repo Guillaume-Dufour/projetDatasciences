@@ -10,11 +10,11 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-df = pd.read_csv("constructedData.csv", sep=',', low_memory=False)
+df = pd.read_csv("data/constructedData.csv", sep=',', low_memory=False)
 
 app.layout = html.Div([
 
-html.Div([
+    html.Div([
 
         html.Div([
             dcc.RadioItems(
@@ -37,6 +37,7 @@ html.Div([
         step=None
     )
 ])
+
 
 @app.callback(
     Output('indicator', 'figure'),

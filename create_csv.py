@@ -2,9 +2,9 @@ import os
 import re
 from email.parser import Parser
 from pandas import *
-from datetime import datetime
+import time
 
-print(datetime.now())
+debut = time.process_time()
 
 rootdir = "maildir"
 
@@ -25,7 +25,7 @@ def write_file_in_data(filename):
 
     email = Parser().parsestr(data)
     date_split = re.split(" ", email['date'])
-    date = date_split[3] + "-" + month(date_split[2]) + "-" + date_split[1] + " " + date_split[4]
+    date = date_split[3] + "-" + month(date_split[2]) + "-" + two_digit_string(date_split[1]) + " " + date_split[4]
 
     d["message-id"].append(email['message-id'])
     d["from"].append(email['from'])
@@ -55,6 +55,10 @@ def month(str_month):
     return values.get(str_month.lower())
 
 
+def two_digit_string(string):
+    return "0" + string if len(string) == 1 else string
+
+
 for (directory, subdirectory, files) in os.walk(rootdir):
     for name in files:
         path = directory.replace("\\", "/")
@@ -63,6 +67,8 @@ for (directory, subdirectory, files) in os.walk(rootdir):
 
 df = pandas.DataFrame(data=d)
 
-df.to_csv("big_data2.csv", index=True)
+df.to_csv("data_complete1.csv", index=True)
 
-print(datetime.now())
+fin = time.process_time()
+
+print("Temps d'exécution : " + str(fin - debut))
