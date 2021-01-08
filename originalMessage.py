@@ -65,6 +65,9 @@ nb = 0
 
 
 def calcul_time_reponse(content):
+
+    nb_errors = 0
+
     try:
         string_split = re.split("Sent: ", content)
 
@@ -80,7 +83,7 @@ def calcul_time_reponse(content):
                 infos = re.split(", | ", date)
                 return infos[3] + "-" + month(infos[1]) + "-" + infos[2] + " " + hour(infos[4], infos[5])
     except Exception:
-        print("error")
+        nb_errors += 1
 
 
 df3['time_response'] = df3['content'].apply(lambda line: calcul_time_reponse(line))

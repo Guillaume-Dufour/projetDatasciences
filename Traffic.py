@@ -21,6 +21,7 @@ def weeklyTraffic (df) :
 
 def yearTraffic (df):
     df_count = df.groupby(df['year']).size()
+    print(df_count)
     """plt.bar(df_count.index, df_count)
     plt.show()"""
     fig = go.Figure(
