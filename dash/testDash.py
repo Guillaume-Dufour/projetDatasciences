@@ -3,14 +3,14 @@ import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
 from dash.dependencies import Input, Output
-import plotly.express as px
 import Traffic
+import top
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-df = pd.read_csv("data/constructedData.csv", sep=',', low_memory=False)
+df = pd.read_csv("../data/data_constructed.csv", sep=',', low_memory=False)
 
 app.layout = html.Div([
 
@@ -19,7 +19,7 @@ app.layout = html.Div([
         html.Div([
             dcc.RadioItems(
                 id='xaxis-type',
-                options=[{'label': i, 'value': i} for i in ['by month', 'by hour', 'by year', 'by weekday']],
+                options=[{'label': i, 'value': i} for i in ['by month', 'by hour', 'by year', 'by weekday', 'senders', 'receivers']],
                 value='by month',
                 labelStyle={'display': 'inline-block'}
             )
@@ -56,7 +56,11 @@ def update_graph(xaxis_type, year_value):
     elif xaxis_type == 'by weekday':
         fig = Traffic.weeklyTraffic(df)
         return fig
+    elif xaxis_type == 'senders' :
+        fig = top.topSenders(df)
+        return fig
+    elif xaxis_type == 'receivers' :
+        fig = top.topReceiver(df)
+        return fig
 
-
-if __name__ == '__main__':
-    app.run_server(debug=True)
+app.run_server(debug=True)
