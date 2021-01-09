@@ -4,7 +4,7 @@ import re
 csv_mail = "data/data_constructed.csv"
 csv_job = "data/data_job.csv"
 
-df_mail = read_csv(csv_mail, sep=",", low_memory=False)
+df_mail = pandas.read_csv(csv_mail, sep=",", low_memory=False)
 df_job = pandas.read_csv(csv_job, sep=",", low_memory=False)
 
 d = {
@@ -12,7 +12,7 @@ d = {
     "job_receiver": []
 }
 
-for index, row in df_mail.iterrows():
+"""for index, row in df_mail.iterrows():
 
     if index % 1000 == 0:
         print(index)
@@ -37,4 +37,4 @@ df = pandas.DataFrame(data=d)
 
 df.to_csv("data/data_annova_sender_receiver.csv", index=False)
 
-print("Fin")
+print("Fin")"""

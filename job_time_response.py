@@ -1,6 +1,7 @@
 from pandas import *
 import re
 from datetime import datetime
+import numpy as np
 
 data_csv = "data/data_constructed.csv"
 
@@ -124,13 +125,12 @@ for index, row in df_mail.iterrows():
 
         df_from = df_job[df_job["Email"].str.contains(from_name[0])]["JobLevel"].values
 
+        if from_name[1] != "enron.com":
+            df_from = np.append(df_from, "Extern")
+
         if df_from.size != 0:
             d["time_response"].append(row["time_response"])
-
-            if from_name[1] != "enron.com":
-                d["job_answerer"].append("Extern")
-            else:
-                d["job_answerer"].append(df_from[0])
+            d["job_answerer"].append(df_from[0])
 
 df_res = pandas.DataFrame(data=d)
 
