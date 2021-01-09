@@ -5,12 +5,6 @@ from pandas import *
 def weeklyTraffic (df) :
     x = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     df_count = df.groupby(['weekDay']).size().reindex(x)
-
-    """plt.bar(x, count_sorted_by_day, color='pink')
-    plt.xlabel('jour de la semaine')
-    plt.ylabel('nombre de mail')
-    plt.title('nombre de mail en fonction du jour de la semaine')
-    plt.show()"""
     fig = go.Figure(
         data=[go.Bar(
             x=df_count.index,
@@ -21,8 +15,7 @@ def weeklyTraffic (df) :
 
 def yearTraffic (df):
     df_count = df.groupby(df['year']).size()
-    """plt.bar(df_count.index, df_count)
-    plt.show()"""
+    print(df_count)
     fig = go.Figure(
         data=[go.Bar(
             x=df_count.index,
@@ -32,10 +25,6 @@ def yearTraffic (df):
     return fig
 
 def monthTraffic (df, year) :
-    """
-    plt.bar(df_count.index, df_count)
-    plt.show()
-    return plt"""
     x = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     dfFiltered = df.drop(df[df.year != year].index)
     df_count = dfFiltered.groupby(dfFiltered['month']).size().reindex(x)
@@ -49,8 +38,6 @@ def monthTraffic (df, year) :
 
 def hourTraffic (df) :
     df_count = df.groupby(df['hour']).size()
-    """plt.bar(df_count.index, df_count)
-    plt.show()"""
     fig = go.Figure(
         data=[go.Bar(
             x=df_count.index,

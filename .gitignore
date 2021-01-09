@@ -9,3 +9,6 @@
 /data/big_data.csv
 /maildir/
 /__pycache__/
+/data_complete.csv
+/data/data_constructed.csv
+/data/
