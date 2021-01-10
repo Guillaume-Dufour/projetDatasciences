@@ -3,7 +3,6 @@ from pandas import *
 import prince
 from plotly.express import scatter
 from plotly.express import bar
-from plotly.express import imshow
 import dash_html_components as html
 import dash_core_components as dcc
 
@@ -28,13 +27,6 @@ display_contingence_tab = {
     "Executive": [],
     "Manager": []
 }
-
-figure = imshow(df.values,
-                labels=dict(x="senders", y="receiver"),
-                x=df.index.values,
-                y=df.columns.values
-                )
-figure.show()
 
 ca = prince.CA(
     n_components=2,
@@ -123,7 +115,6 @@ table = dash_table.DataTable(
     columns=[{"name": i, "id": i} for i in df.reset_index().columns],
     data=df.reset_index().to_dict("records"),
 )
-print(table.active_cell[0][0])
 
 
 
