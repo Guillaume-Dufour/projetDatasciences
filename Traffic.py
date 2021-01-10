@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 import plotly.graph_objects as go
+import pandas as pd
 from pandas import *
 
 def weeklyTraffic (df) :

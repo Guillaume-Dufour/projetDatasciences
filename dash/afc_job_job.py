@@ -1,29 +1,69 @@
-import pandas as pd
-import scipy.stats as st
-from fanalysis.ca import CA
-import matplotlib.pyplot as plt
+from pandas import *
+import prince
+from plotly.express import scatter
 
-df = pd.read_csv("../data/data_afc_job_job.csv", sep=",", low_memory=False)
+dataFrame = pandas.read_csv("../data/data_afc_job_job.csv", sep=",", low_memory=False)
 
-#création du tableau de contingence
 X = "job_sender"
 Y = "job_receiver"
-cont = df[[X, Y]].pivot_table(index=X, columns=Y, aggfunc=len).fillna(0).copy().astype(int)
-print(cont)
+cont = dataFrame[[X, Y]].pivot_table(index=X, columns=Y, aggfunc=len).fillna(0).copy().astype(int)
 
-# test du ki2
-st_chi2, st_p, st_dof, st_exp = st.chi2_contingency(cont)
-print("st_chi2")
-print(st_chi2)
-print("st_p")
-print(st_p)
+pandas.set_option('display.float_format', lambda x: '{:.6f}'.format(x))
 
-# AFC
-X = cont.values
-print(X)
-my_ca = CA(row_labels=cont.index.values, col_labels=cont.columns.values)
-my_ca.fit(X)
-print(my_ca.eig_)
-my_ca.plot_eigenvalues(type="percentage")
-my_ca.mapping(num_x_axis=1, num_y_axis=2)
+df = pandas.DataFrame(
+    data=cont.values,
+    columns=pandas.Series(cont.columns.values),
+    index=pandas.Series(cont.index.values)
+)
+
+ca = prince.CA(
+    n_components=2,
+    n_iter=3,
+    copy=True,
+    check_input=True,
+    engine="auto"
+)
+
+ca.fit(df)
+row = ca.row_coordinates(df)
+column = ca.column_coordinates(df)
+
+d = {
+    "name": [],
+    "dim1": [],
+    "dim2": [],
+    "type": []
+}
+for index, r in row.iterrows():
+    d["name"].append(index)
+    d["dim1"].append(r[0])
+    d["dim2"].append(r[1])
+    d["type"].append("sender")
+
+for index, c in column.iterrows():
+    d["name"].append(index)
+    d["dim1"].append(c[0])
+    d["dim2"].append(c[1])
+    d["type"].append("receiver")
+
+complete = pandas.DataFrame(data=d)
+
+fig = scatter(complete, x="dim1", y="dim2", text="name", color="type")
+fig.update_traces(textposition='top center')
+fig.show()
+
+ax = ca.plot_coordinates(
+    X=df,
+    ax=None,
+    figsize=(5, 5),
+    x_component=0,
+    y_component=1,
+    show_row_labels=True,
+    show_col_labels=True
+)
+
+#fig = ax.get_figure()
+
+
+
 
