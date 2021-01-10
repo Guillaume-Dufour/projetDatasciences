@@ -59,7 +59,7 @@ def test():
     fig.update_traces(textposition='top center')
     return fig
 
-test().show()
+
 
 ax = ca.plot_coordinates(
     X=df,

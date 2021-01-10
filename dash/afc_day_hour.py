@@ -40,4 +40,3 @@ def test():
     fig = scatter(df_cols, x="col_coord_dim1", y="col_coord_dim2", text=text)
     return fig
 
-test().show()

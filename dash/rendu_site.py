@@ -63,10 +63,7 @@ app.layout = html.Div([
             )
         ]),
 
-        dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
-            # html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()))
-            dcc.Graph(figure=test())
-        ]),
+
 
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
             ataj.introduction,
@@ -77,6 +74,11 @@ app.layout = html.Div([
                 data=ataj.anova_table.reset_index().to_dict("records")
             ),
             ataj.conclusion
+        ]),
+
+        dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
+            # html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()))
+            dcc.Graph(figure=test())
         ])
 
     ])
