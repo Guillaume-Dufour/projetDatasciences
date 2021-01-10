@@ -55,7 +55,10 @@ app.layout = html.Div([
             )
         ]),
         dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
-
+            html.Div(children=
+            html.Img(
+                src="../brouillon/img2.png")
+            )
         ]),
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
             ataj.introduction,
@@ -67,7 +70,6 @@ app.layout = html.Div([
             ),
             ataj.conclusion
         ])
-
     ])
 ])
 
@@ -78,5 +80,6 @@ app.layout = html.Div([
 def update_graph(year_slider):
     fig = Traffic.monthTraffic(dataframe_constructed, year_slider)
     return fig
+
 
 app.run_server(debug=True)

@@ -4,7 +4,7 @@ from fanalysis.ca import CA
 
 # création du tableau de contingence
 
-dataFrame = pd.read_csv("../data/data_partiel_constructed.csv", sep=",", low_memory=False)
+dataFrame = pd.read_csv("../data/data_constructed.csv", sep=",", low_memory=False)
 
 X = "hour"
 Y = "weekDay"
