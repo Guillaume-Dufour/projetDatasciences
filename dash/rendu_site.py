@@ -87,12 +87,18 @@ app.layout = html.Div([
 
         dcc.Tab(label='Analyse du nombre de mails en fonction du poste', children=[
             asj.introduction,
+
+            asj.titleBoxPlot,
             dcc.Graph(figure=asj.fig),
+
+            asj.titleTabAnova,
             dash_table.DataTable(
                 id='first_result',
                 columns=[{"name": i, "id": i} for i in asj.anova_table.reset_index().columns],
                 data=asj.anova_table.reset_index().to_dict("records")
-            )
+            ),
+
+            asj.analyse
         ]),
 
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
