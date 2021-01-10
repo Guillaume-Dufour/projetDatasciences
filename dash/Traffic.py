@@ -1,8 +1,5 @@
-from matplotlib import pyplot as plt
-import plotly.graph_objects as go
-import pandas as pd
-from pandas import *
 import dash_html_components as html
+import plotly.graph_objects as go
 
 introduction = html.Div([
     html.Div("Dans un premier temps, nous avons réalisé des graphiques afin de visualiser le nombre de mails envoyés "

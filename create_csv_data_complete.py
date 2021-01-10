@@ -2,9 +2,8 @@ import os
 import re
 from email.parser import Parser
 from pandas import *
-import time
-
-debut = time.process_time()
+from utils import month
+from utils import two_digit_string
 
 rootdir = "maildir"
 
@@ -25,8 +24,6 @@ def write_file_in_data(filename):
 
     email = Parser().parsestr(data)
     date_str = parse_date(email['date'])
-    """date_split = re.split(" ", email['date'])
-    date = date_split[3] + "-" + month(date_split[2]) + "-" + two_digit_string(date_split[1]) + " " + date_split[4]"""
 
     d["message-id"].append(email['message-id'])
     d["from"].append(email['from'])
@@ -35,29 +32,6 @@ def write_file_in_data(filename):
     d["subject"].append(email['subject'])
     d["x-origin"].append(email['x-origin'])
     d["content"].append(email.get_payload().strip())
-
-
-def month(str_month):
-    values = {
-        "jan": "01",
-        "feb": "02",
-        "mar": "03",
-        "apr": "04",
-        "may": "05",
-        "jun": "06",
-        "jul": "07",
-        "aug": "08",
-        "sep": "09",
-        "oct": "10",
-        "nov": "11",
-        "dec": "12"
-    }
-
-    return values.get(str_month.lower())
-
-
-def two_digit_string(string):
-    return "0" + string if len(string) == 1 else string
 
 
 def parse_date(raw_date):
@@ -81,8 +55,4 @@ for (directory, subdirectory, files) in os.walk(rootdir):
 
 df = pandas.DataFrame(data=d)
 
-df.to_csv("data_complete_V2.csv", index=True)
-
-fin = time.process_time()
-
-print("Temps d'exécution : " + str(fin - debut))
+df.to_csv("data/data_complete.csv", index=True)

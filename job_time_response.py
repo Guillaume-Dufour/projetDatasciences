@@ -2,6 +2,8 @@ from pandas import *
 import re
 from datetime import datetime
 import numpy as np
+from utils import month
+from utils import two_digit_string
 
 data_csv = "data/data_constructed.csv"
 
@@ -14,25 +16,6 @@ def create_response_csv(csv_in):
     df2 = df[df['content'].str.contains(substring)]
 
     df2.to_csv("data_response.csv", index=False)
-
-
-def month(str_month):
-    values = {
-        "january": "01",
-        "february": "02",
-        "march": "03",
-        "april": "04",
-        "may": "05",
-        "june": "06",
-        "july": "07",
-        "august": "08",
-        "september": "09",
-        "october": "10",
-        "november": "11",
-        "december": "12"
-    }
-
-    return values.get(str_month.lower())
 
 
 def hour(str_hour, part):
@@ -49,10 +32,6 @@ def hour(str_hour, part):
     return hour_str + ":" + hour_split[1] + ":00"
 
 
-def two_digit_month(month_str):
-    return "0" + month_str if len(month_str) == 1 else month_str
-
-
 def calcul_data_response(content):
     nb_errors = 0
 
@@ -66,12 +45,12 @@ def calcul_data_response(content):
         if len(date) < 45:
             if date.__contains__("/"):
                 infos = re.split("[ /]", date)
-                return infos[3] + "-" + two_digit_month(infos[1]) + "-" + two_digit_month(infos[2]) + " " + hour(
+                return infos[3] + "-" + two_digit_string(infos[1]) + "-" + two_digit_string(infos[2]) + " " + hour(
                     infos[4], infos[5])
             else:
                 infos = re.split(", | ", date)
-                return infos[3] + "-" + month(infos[1]) + "-" + two_digit_month(infos[2]) + " " + hour(infos[4],
-                                                                                                       infos[5])
+                return infos[3] + "-" + month(infos[1]) + "-" + two_digit_string(infos[2]) + " " + hour(infos[4],
+                                                                                                        infos[5])
     except Exception:
         nb_errors += 1
 
@@ -135,8 +114,3 @@ for index, row in df_mail.iterrows():
 df_res = pandas.DataFrame(data=d)
 
 df_res.to_csv("data/data_annova_job_time_response.csv", index=False)
-
-print("Fin")
-
-
-

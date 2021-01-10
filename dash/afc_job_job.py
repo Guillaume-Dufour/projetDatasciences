@@ -37,7 +37,6 @@ for index, row in df.iterrows():
 
 display_contingence_frame = pandas.DataFrame(data=display_contingence_tab)
 
-
 ca = prince.CA(
     n_components=2,
     n_iter=3,

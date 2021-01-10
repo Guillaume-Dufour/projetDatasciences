@@ -10,4 +10,10 @@
 /maildir/
 /__pycache__/
 /data
+
 *.pyc
+/data/data_afc_job_job.csv
+/data/data_annova_job_time_response.csv
+/data/data_constructed_job.csv
+/data/data_job.csv
+/data/data_complete.csv

@@ -32,13 +32,15 @@ def add_hour_column(df):
     return df
 
 
-df = pandas.read_csv("data/data.csv", sep=",", low_memory=False)
+csv_in = "data/data_complete.csv"
 
-df = drop_duplicates(df)
-df = filter_years(df)
-df = add_year_column(df)
-df = add_month_column(df)
-df = add_weekday_column(df)
-df = add_hour_column(df)
+dataframe = pandas.read_csv(csv_in, sep=",", low_memory=False)
 
-df.to_csv("data/data_petit_constructed.csv", index=False)
+dataframe = drop_duplicates(dataframe)
+dataframe = filter_years(dataframe)
+dataframe = add_year_column(dataframe)
+dataframe = add_month_column(dataframe)
+dataframe = add_weekday_column(dataframe)
+dataframe = add_hour_column(dataframe)
+
+dataframe.to_csv("data/data_constructed.csv", index=False)
