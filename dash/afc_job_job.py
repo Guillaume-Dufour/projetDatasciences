@@ -112,6 +112,7 @@ ax = ca.plot_coordinates(
 
 print(ca.eigenvalues_)
 print("ki2", ca.total_inertia_, len(dataFrame.index), ca.total_inertia_ * len(dataFrame.index))
+ki2 = ca.total_inertia_ * len(dataFrame.index)
 
 resultat = html.Div([
     html.H5("tableau de contingence"),
@@ -126,6 +127,8 @@ resultat = html.Div([
         columns=[{"name": i, "id": i} for i in df_eigen_value.columns],
         data=df_eigen_value.to_dict("records")
     ),
+    html.H5("valeur du ki2"),
+    html.P(str(ki2)),
     html.H5("pourcentage de représentation des dimensions"),
     dcc.Graph(figure=fig_eigen_value),
     html.H5("AFC : analyse du poste du destinataire en fonction du post de l'expéditeur"),
