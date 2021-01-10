@@ -5,7 +5,11 @@ from pandas import *
 import dash_html_components as html
 
 introduction = html.Div([
+    html.H5(
+        "Prise en main des données"
+    ),
     html.Div(
+
         html.P(
             "Dans un premier temps, nous avons réalisé des graphiques afin de visualiser le nombre de mails envoyés "
             "par jour de la semaine, par heure, par mois d’une année et enfin par année. Cela nous a permis de "
@@ -17,13 +21,18 @@ introduction = html.Div([
 ])
 
 conclusion = html.Div([
+    html.Br(),
+    html.H5(
+        "Résultat"
+    ),
     html.Div(
+
         html.P(
             "On a ensuite voulu regarder s' il y avait des heures/jours où on envoyait plus d’email que d’autres. Sans "
             "surprise on s’est rendu compte que les employés envoient des emails uniformément durant leur heures/jours de "
             "travail. Cela nous a aussi permis de nous rendre compte que nos dates n’étaient pas toutes dans le même "
             "fuseau horaire. ",
-            style={'marginBottom': 20}
+            style={'marginBottom': 20, 'marginTop': 20}
         )
     )
 ])
