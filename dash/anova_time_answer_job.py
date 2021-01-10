@@ -13,15 +13,16 @@ introduction = html.Div([
 ])
 
 dataFrame = pd.read_csv("../data/data_annova_job_time_response.csv", sep=",", low_memory=False)
-dataFrame["time_response"] = dataFrame["time_response"] / 36000
 
-# Pour éliminer l’individu trop atypique
-dataFrame = dataFrame[dataFrame.time_response < 1000]
+dataFrame = dataFrame[dataFrame.time_response < (31536000 / 12)]  # superieur à 1 an
+
+dataFrame["time_response"] = dataFrame["time_response"] / 3600
 
 fig = px.box(dataFrame,
              x='job_answerer',
              y='time_response',
-             labels={'job_answerer': "Type of job", 'time_response': "Time of response in hours"})
+             labels={'job_answerer': "Type of job", 'time_response': "Time of response in hours"},
+             height=1000)
 
 # Ordinary Least Squares (OLS) model
 model = ols('time_response ~ job_answerer', data=dataFrame).fit()
