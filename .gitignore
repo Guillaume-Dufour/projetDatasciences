@@ -11,3 +11,8 @@
 /__pycache__/
 /data
 *.pyc
+*.pyc
+brouillon/__pycache__/test2.cpython-38.pyc
+dash/__pycache__/anova_strenght_job.cpython-38.pyc
+dash/__pycache__/anova_time_answer_job.cpython-38.pyc
+dash/__pycache__/introduction.cpython-38.pyc

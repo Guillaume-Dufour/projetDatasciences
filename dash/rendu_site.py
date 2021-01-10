@@ -47,9 +47,15 @@ app.layout = html.Div([
         dcc.Tab(label='Prise en main des données', children=[
             dcc.Tabs([
                 dcc.Tab(label="Par année", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="year", figure=Traffic.yearTraffic(dataframe_constructed))
                 ]),
                 dcc.Tab(label="Par mois", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="month"),
                     dcc.Slider(
                         id='year_slider',
@@ -61,12 +67,22 @@ app.layout = html.Div([
                     )
                 ]),
                 dcc.Tab(label="Par jour de la semaine", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="weekday", figure=Traffic.weeklyTraffic(dataframe_constructed))
                 ]),
                 dcc.Tab(label="Par heure de la journée", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="hour", figure=Traffic.hourTraffic(dataframe_constructed))
                 ])
-            ])
+
+            ]),
+            dcc.Tab(label='Conclusion', children=[
+                Traffic.conclusion
+            ]),
         ]),
 
         dcc.Tab(label='Analyse du nombre de mails en fonction du poste', children=[
@@ -83,20 +99,23 @@ app.layout = html.Div([
             ataj.introduction,
 
             dcc.Graph(figure=ataj.fig1),
-            dash_table.DataTable(
-                id='third_result1',
-                columns=[{"name": i, "id": i} for i in ataj.anova_table1.reset_index().columns],
-                data=ataj.anova_table1.reset_index().to_dict("records")
-            ),
+
+            ataj.analyseDiagramme,
 
             dcc.Graph(figure=ataj.fig2),
+            ataj.titleTabAnova,
             dash_table.DataTable(
                 id='third_result2',
                 columns=[{"name": i, "id": i} for i in ataj.anova_table2.reset_index().columns],
                 data=ataj.anova_table2.reset_index().to_dict("records")
             ),
 
+            ataj.analyseAnova1,
+
             dcc.Graph(figure=ataj.fig3),
+
+            ataj.titleTabAnova,
+
             dash_table.DataTable(
                 id='third_result3',
                 columns=[{"name": i, "id": i} for i in ataj.anova_table3.reset_index().columns],
