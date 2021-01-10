@@ -2,8 +2,18 @@ from matplotlib import pyplot as plt
 import plotly.graph_objects as go
 import pandas as pd
 from pandas import *
+import dash_html_components as html
 
-def weeklyTraffic (df) :
+introduction = html.Div([
+    html.Div("Dans un premier temps, nous avons réalisé des graphiques afin de visualiser le nombre de mails envoyés "
+             "par jour de la semaine, par heure, par mois d’une année et enfin par année. Cela nous a permis de "
+             "supprimer les mails dont les dates sont  avant 1999 et après 2003 car ils n’étaient pas exploitables ("
+             "trop peu nombreux, mails souvent automatiques…)."
+             ),
+])
+
+
+def weeklyTraffic(df):
     x = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     df_count = df.groupby(['weekDay']).size().reindex(x)
     fig = go.Figure(
@@ -14,7 +24,8 @@ def weeklyTraffic (df) :
     )
     return fig
 
-def yearTraffic (df):
+
+def yearTraffic(df):
     df_count = df.groupby(df['year']).size()
     print(df_count)
     fig = go.Figure(
@@ -25,8 +36,10 @@ def yearTraffic (df):
     )
     return fig
 
-def monthTraffic (df, year) :
-    x = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+def monthTraffic(df, year):
+    x = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November",
+         "December"]
     dfFiltered = df.drop(df[df.year != year].index)
     df_count = dfFiltered.groupby(dfFiltered['month']).size().reindex(x)
     fig = go.Figure(
@@ -37,7 +50,8 @@ def monthTraffic (df, year) :
     )
     return fig
 
-def hourTraffic (df) :
+
+def hourTraffic(df):
     df_count = df.groupby(df['hour']).size()
     fig = go.Figure(
         data=[go.Bar(

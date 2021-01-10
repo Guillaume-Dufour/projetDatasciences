@@ -21,19 +21,44 @@ introduction = html.Div([
 
 dataFrame = pd.read_csv("../data/data_annova_job_time_response.csv", sep=",", low_memory=False)
 
-dataFrame = dataFrame[dataFrame.time_response < (31536000 / 12)]  # superieur à 1 an
-
-dataFrame["time_response"] = dataFrame["time_response"] / 3600
-
-fig = px.box(dataFrame,
-             x='job_answerer',
-             y='time_response',
-             labels={'job_answerer': "Type of job", 'time_response': "Time of response in hours"},
-             height=1000)
+# First diagram, without removing any value
+fig1 = px.box(dataFrame,
+              x='job_answerer',
+              y='time_response',
+              labels={'job_answerer': "Type of job", 'time_response': "Time of response in hours"},
+              height=600)
 
 # Ordinary Least Squares (OLS) model
-model = ols('time_response ~ job_answerer', data=dataFrame).fit()
-anova_table = sm.stats.anova_lm(model, typ=2)
+model1 = ols('time_response ~ job_answerer', data=dataFrame).fit()
+anova_table1 = sm.stats.anova_lm(model1, typ=2)
+
+# Diagram 2 : Les 2 individus atypiques enlevés
+dataFrame1 = dataFrame.copy()[dataFrame.time_response < 31536000]  # superieur à 1 an
+dataFrame1["time_response"] = dataFrame["time_response"] / 3600
+
+fig2 = px.box(dataFrame1,
+              x='job_answerer',
+              y='time_response',
+              labels={'job_answerer': "Type of job", 'time_response': "Time of response in hours"},
+              height=600)
+
+# Ordinary Least Squares (OLS) model
+model2 = ols('time_response ~ job_answerer', data=dataFrame1).fit()
+anova_table2 = sm.stats.anova_lm(model2, typ=2)
+
+# Diagram 3 : On garde toutes les réponses inférieurs à 1 mois
+dataFrame2 = dataFrame.copy()[dataFrame.time_response < 31536000 / 12]  # superieur à 1 an
+dataFrame2["time_response"] = dataFrame["time_response"] / 3600
+
+fig3 = px.box(dataFrame2,
+              x='job_answerer',
+              y='time_response',
+              labels={'job_answerer': "Type of job", 'time_response': "Time of response in hours"},
+              height=1000)
+
+# Ordinary Least Squares (OLS) model
+model3 = ols('time_response ~ job_answerer', data=dataFrame2).fit()
+anova_table3 = sm.stats.anova_lm(model3, typ=2)
 
 conclusion = html.Div([
     html.P("On suppose que l’on a égalité des variances et que nos variables suivent une loi gaussienne."),

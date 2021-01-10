@@ -10,3 +10,4 @@
 /maildir/
 /__pycache__/
 /data
+*.pyc

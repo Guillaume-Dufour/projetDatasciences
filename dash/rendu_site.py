@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
-import base64
 
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
 import pandas as pd
 from dash.dependencies import Input, Output
-import Traffic
+import Traffic as Traffic
 import introduction as intro
 import anova_strenght_job as asj
 import anova_time_answer_job as ataj
-import afc_day_hour as adh
 import dash_table
 from brouillon.test2 import *
 
@@ -67,12 +65,28 @@ app.layout = html.Div([
 
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
             ataj.introduction,
-            dcc.Graph(figure=ataj.fig),
+
+            dcc.Graph(figure=ataj.fig1),
             dash_table.DataTable(
-                id='third_result',
-                columns=[{"name": i, "id": i} for i in ataj.anova_table.reset_index().columns],
-                data=ataj.anova_table.reset_index().to_dict("records")
+                id='third_result1',
+                columns=[{"name": i, "id": i} for i in ataj.anova_table1.reset_index().columns],
+                data=ataj.anova_table1.reset_index().to_dict("records")
             ),
+
+            dcc.Graph(figure=ataj.fig2),
+            dash_table.DataTable(
+                id='third_result2',
+                columns=[{"name": i, "id": i} for i in ataj.anova_table2.reset_index().columns],
+                data=ataj.anova_table2.reset_index().to_dict("records")
+            ),
+
+            dcc.Graph(figure=ataj.fig3),
+            dash_table.DataTable(
+                id='third_result3',
+                columns=[{"name": i, "id": i} for i in ataj.anova_table3.reset_index().columns],
+                data=ataj.anova_table3.reset_index().to_dict("records")
+            ),
+
             ataj.conclusion
         ]),
 
