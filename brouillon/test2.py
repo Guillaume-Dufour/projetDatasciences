@@ -1,5 +1,7 @@
 from pandas import *
 import prince
+from artist import plot
+from plotly.express import scatter
 
 dataFrame = pandas.read_csv("../data/data_constructed.csv", sep=",", low_memory=False)
 
@@ -25,6 +27,38 @@ ca = prince.CA(
 )
 
 ca.fit(df)
+row = ca.row_coordinates(df)
+column = ca.column_coordinates(df)
+
+d = {
+    "name": [],
+    "dim1": [],
+    "dim2": [],
+    "type": []
+}
+for index, r in row.iterrows():
+    d["name"].append(index)
+    d["dim1"].append(r[0])
+    d["dim2"].append(r[1])
+    d["type"].append("row")
+
+for index, c in column.iterrows():
+    d["name"].append(index)
+    d["dim1"].append(c[0])
+    d["dim2"].append(c[1])
+    d["type"].append("column")
+
+complete = pandas.DataFrame(data=d)
+complete.to_csv("temp.csv")
+
+print(complete)
+
+def test():
+    fig = scatter(complete, x="dim1", y="dim2", text="name", color="type")
+    fig.update_traces(textposition='top center')
+    return fig
+
+test().show()
 
 ax = ca.plot_coordinates(
     X=df,
@@ -36,7 +70,7 @@ ax = ca.plot_coordinates(
     show_col_labels=True
 )
 
-fig = ax.get_figure().savefig("img2.png")
+fig = ax.get_figure()
 
 
 
