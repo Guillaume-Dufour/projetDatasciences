@@ -87,14 +87,22 @@ app.layout = html.Div([
                 data=ataj.anova_table1.reset_index().to_dict("records")
             ),
 
+            ataj.analyseDiagramme,
+
             dcc.Graph(figure=ataj.fig2),
+            ataj.titleTabAnova,
             dash_table.DataTable(
                 id='third_result2',
                 columns=[{"name": i, "id": i} for i in ataj.anova_table2.reset_index().columns],
                 data=ataj.anova_table2.reset_index().to_dict("records")
             ),
 
+            ataj.analyseAnova1,
+
             dcc.Graph(figure=ataj.fig3),
+            
+            ataj.titleTabAnova,
+
             dash_table.DataTable(
                 id='third_result3',
                 columns=[{"name": i, "id": i} for i in ataj.anova_table3.reset_index().columns],
