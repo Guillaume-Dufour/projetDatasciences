@@ -1,8 +1,11 @@
 from pandas import *
 import prince
 from plotly.express import scatter
+from plotly.express import bar
+import dash_html_components as html
+import dash_core_components as dcc
 
-dataFrame = pandas.read_csv("../data_afc/data_afc_job_job.csv", sep=",", low_memory=False)
+dataFrame = pandas.read_csv("../data/data_afc_job_job.csv", sep=",", low_memory=False)
 
 X = "job_sender"
 Y = "job_receiver"
@@ -48,10 +51,28 @@ for index, c in column.iterrows():
 
 complete = pandas.DataFrame(data=d)
 
-fig = scatter(complete, x="dim1", y="dim2", text="name", color="type")
-fig.update_traces(textposition='top center')
-# fig.show()
+eigen_value = {
+    "dim": [],
+    "percentage": []
+}
 
+eigen_value["dim"].append("1")
+eigen_value["dim"].append("2")
+eigen_value["percentage"].append(round(ca.eigenvalues_[0] / ca.total_inertia_, 3)*100)
+eigen_value["percentage"].append(round(ca.eigenvalues_[1] / ca.total_inertia_, 3)*100)
+
+df_eigen_value = pandas.DataFrame(data=eigen_value)
+
+fig_afc = scatter(complete, x="dim1", y="dim2", text="name", color="type",
+                  labels={
+                     "dim1": "dim 1 : ( " + str(df_eigen_value['percentage'][0]) + "%)",
+                     "dim2": "dim 2 : ( " + str(df_eigen_value['percentage'][1]) + "%)",
+                     "type": ""
+                 },
+                  title="AFC : analyse du poste du destinataire en fonction du poste de l'expéditeur")
+fig_afc.update_traces(textposition='top center')
+
+fig_eigen_value = bar(df_eigen_value, x='dim', y='percentage', title="pourcentage de représentation des dimensions")
 
 ax = ca.plot_coordinates(
     X=df,
@@ -68,7 +89,10 @@ print("ki2", ca.total_inertia_, len(dataFrame.index), ca.total_inertia_ * len(da
 print("dim1", round(ca.eigenvalues_[0] / ca.total_inertia_, 3))
 print("dim2", round(ca.eigenvalues_[1] / ca.total_inertia_, 3))
 
-#fig = ax.get_figure()
+resultat = html.Div([
+    dcc.Graph(figure=fig_eigen_value),
+    dcc.Graph(figure=fig_afc)
+])
 
 
 
