@@ -1,7 +1,9 @@
+import dash_table
 from pandas import *
 import prince
 from plotly.express import scatter
 from plotly.express import bar
+from plotly.express import imshow
 import dash_html_components as html
 import dash_core_components as dcc
 
@@ -18,6 +20,21 @@ df = pandas.DataFrame(
     columns=pandas.Series(cont.columns.values),
     index=pandas.Series(cont.index.values)
 )
+
+display_contingence_tab = {
+    "job_sender/job_receiver": [],
+    "Associate":[],
+    "Employee": [],
+    "Executive": [],
+    "Manager": []
+}
+
+figure = imshow(df.values,
+                labels=dict(x="senders", y="receiver"),
+                x=df.index.values,
+                y=df.columns.values
+                )
+figure.show()
 
 ca = prince.CA(
     n_components=2,
@@ -37,6 +54,7 @@ d = {
     "dim2": [],
     "type": []
 }
+
 for index, r in row.iterrows():
     d["name"].append(index)
     d["dim1"].append(r[0])
@@ -88,11 +106,24 @@ print(ca.eigenvalues_)
 print("ki2", ca.total_inertia_, len(dataFrame.index), ca.total_inertia_ * len(dataFrame.index))
 print("dim1", round(ca.eigenvalues_[0] / ca.total_inertia_, 3))
 print("dim2", round(ca.eigenvalues_[1] / ca.total_inertia_, 3))
-
+print(cont)
 resultat = html.Div([
+    html.P("tableau de contingence"),
+    dash_table.DataTable(
+        id='tab_contingence',
+        columns=[{"name": i, "id": i} for i in df.reset_index().columns],
+        data=df.reset_index().to_dict("records")
+    ),
     dcc.Graph(figure=fig_eigen_value),
     dcc.Graph(figure=fig_afc)
 ])
+
+table = dash_table.DataTable(
+    id='tab_contingence',
+    columns=[{"name": i, "id": i} for i in df.reset_index().columns],
+    data=df.reset_index().to_dict("records"),
+)
+print(table.active_cell[0][0])
 
 
 
