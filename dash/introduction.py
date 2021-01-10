@@ -33,7 +33,7 @@ introduction = html.Div([
         html.H5("Nettoyage des données"),
 
         html.P(
-            "Une fois que nous avons créé la base de données nous avons remarqué qu’il y avait des doublons dans les mails, en effet ils étaient tous présents en 2 exemplaires. Nous avons donc supprimé tous les doublons.",
+            "Une fois que nous avons créé le csv à partir de tous les dossiers de tous les employés d’Enron (mails bruts), nous avons remarqué qu’il y avait des doublons dans les mails. En effet, ils étaient tous présents en 2 exemplaires. Nous avons donc supprimé tous les doublons. ",
             style={'marginBottom': 20}
         ),
         html.P(

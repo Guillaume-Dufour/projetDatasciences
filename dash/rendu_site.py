@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import base64
+
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
@@ -8,14 +10,18 @@ import Traffic
 import introduction as intro
 import anova_strenght_job as asj
 import anova_time_answer_job as ataj
-import afc_job_job as ajj
+import afc_day_hour as adh
 import dash_table
+from brouillon.test2 import *
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 dataframe_constructed = pd.read_csv("../data/data_constructed.csv", sep=',', low_memory=False)
+
+# image_filename = '../brouillon/img2.png'
+# encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 app.layout = html.Div([
     dcc.Tabs([
@@ -46,7 +52,8 @@ app.layout = html.Div([
                 ])
             ])
         ]),
-        dcc.Tab(label='Analyse du nombre de mail en fonction du poste', children=[
+
+        dcc.Tab(label='Analyse du nombre de mails en fonction du poste', children=[
             asj.introduction,
             dcc.Graph(figure=asj.fig),
             dash_table.DataTable(
@@ -55,9 +62,9 @@ app.layout = html.Div([
                 data=asj.anova_table.reset_index().to_dict("records")
             )
         ]),
-        dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
-            ajj.resultat
-        ]),
+
+
+
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
             ataj.introduction,
             dcc.Graph(figure=ataj.fig),
@@ -67,6 +74,11 @@ app.layout = html.Div([
                 data=ataj.anova_table.reset_index().to_dict("records")
             ),
             ataj.conclusion
+        ]),
+
+        dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
+            # html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()))
+            dcc.Graph(figure=test())
         ])
 
     ])
@@ -79,5 +91,6 @@ app.layout = html.Div([
 def update_graph(year_slider):
     fig = Traffic.monthTraffic(dataframe_constructed, year_slider)
     return fig
+
 
 app.run_server(debug=True)
