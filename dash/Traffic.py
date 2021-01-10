@@ -9,12 +9,11 @@ introduction = html.Div([
         "Prise en main des données"
     ),
     html.Div(
-
         html.P(
             "Dans un premier temps, nous avons réalisé des graphiques afin de visualiser le nombre de mails envoyés "
             "par jour de la semaine, par heure, par mois d’une année et enfin par année. Cela nous a permis de "
-            "supprimer les mails dont les dates sont  avant 1999 et après 2003 car ils n’étaient pas exploitables ("
-            "trop peu nombreux, mails souvent automatiques…).",
+            "supprimer les mails dont les dates sont  antérieures à 1999 et postérieurs à 2003 car ils n’étaient pas "
+            "exploitables (trop peu nombreux, mails souvent automatiques …). ",
             style={'marginBottom': 20, 'marginTop': 20}
         )
     )
@@ -23,15 +22,14 @@ introduction = html.Div([
 conclusion = html.Div([
     html.Br(),
     html.H5(
-        "Résultat"
+        "Résultats"
     ),
     html.Div(
-
         html.P(
-            "On a ensuite voulu regarder s' il y avait des heures/jours où on envoyait plus d’email que d’autres. Sans "
-            "surprise on s’est rendu compte que les employés envoient des emails uniformément durant leur heures/jours de "
-            "travail. Cela nous a aussi permis de nous rendre compte que nos dates n’étaient pas toutes dans le même "
-            "fuseau horaire. ",
+            "Nous avons ensuite voulu regarder s'il y avait des heures / jours où on envoyait plus de mails que "
+            "d’autres. Sans surprise, nous nous sommes rendus compte que les employés envoient des mails uniformément "
+            "durant leurs heures / jours de travail. Cela nous a aussi permis de nous rendre compte que nos dates "
+            "n’étaient pas toutes dans le même fuseau horaire.",
             style={'marginBottom': 20, 'marginTop': 20}
         )
     )

@@ -8,13 +8,15 @@ introduction = html.Div([
 
     html.H4("Anova temps de réponse à un mail reçu en fonction du poste"),
     html.P(
-        "Nous nous sommes demandés si le poste des employés avait une influence sur le temps de réponse, un employé met-il plus de temps à répondre qu’un manager ? Pour vérifier cela, nous avons donc, dans un premier temps, réalisé un diagramme pour visualiser les données.",
+        "Nous nous sommes donc demandés si le poste avait une influence sur le temps de réponse, un employé met-il "
+        "plus de temps à répondre qu’un manager ? Pour vérifier cela, nous avons donc, dans un premier temps, "
+        "réalisé un diagramme pour visualiser les données.",
         style={'marginBottom': 30}
     ),
 
     html.P("Boxplot temps de réponse moyen en heures en fonction du poste au sein de l'entreprise",
            style={'text-decoration': 'underline', 'text-align': 'center'}
-           )
+       )
 ])
 
 dataFrame = pd.read_csv("../data/data_annova_job_time_response.csv", sep=",", low_memory=False)
@@ -28,7 +30,9 @@ fig1 = px.box(dataFrame,
 
 analyseDiagramme = html.Div([
     html.P(
-        "En regardant ce diagramme, on a l’impression que les managers répondent plus vite. On remarque aussi que l’un des employés met beaucoup plus de temps à répondre (1400 heures) ainsi qu’un externe (>5000 heures) on a donc décidé de l’enlever des données avant de faire l’analyse. ",
+        "En regardant ce diagramme, on a l’impression que les managers répondent plus vite. On remarque aussi que "
+        "l’un des employés met beaucoup plus de temps à répondre (1400 heures) ainsi qu’un externe (>5000 heures) on "
+        "a donc décidé de l’enlever des données avant de faire l’analyse. ",
         style={'marginBottom': 20}
     ),
     html.P(
@@ -37,7 +41,7 @@ analyseDiagramme = html.Div([
     ),
     html.P(
         "Boxplot temps de réponse moyen en heures en fonction du poste au sein de l'entreprise",
-        style={'text-decoration': 'underline', 'text-align': 'center' }
+        style={'text-decoration': 'underline', 'text-align': 'center'}
     )
 
 ])
@@ -58,7 +62,7 @@ anova_table2 = sm.stats.anova_lm(model2, typ=2)
 
 titleTabAnova = html.Div(
     "Tableau analyse variance",
-    style={'text-decoration': 'underline', 'text-align': 'center', 'marginBottom':20}
+    style={'text-decoration': 'underline', 'text-align': 'center', 'marginBottom': 20}
 )
 analyseAnova1 = html.Div([
     html.P(
@@ -105,7 +109,8 @@ conclusion = html.Div([
     html.P("On suppose que l’on a égalité des variances et que nos variables suivent une loi gaussienne."),
     html.P("H0 → m1 = … = mp "),
     html.P("H1 → Il existe rs tel que mr ≠ ms "),
-    html.P("On a la Pvalue = 0.0015  ce qui est inférieur à 5%, on rejette H0. Nous avons donc  mis en évidence un lien entre le poste et le temps de réponse."),
+    html.P(
+        "On a la Pvalue = 0.0015  ce qui est inférieur à 5%, on rejette H0. Nous avons donc  mis en évidence un lien entre le poste et le temps de réponse."),
     html.P(
         "Maintenant, si on regarde de nouveau le boxplot, ça ne soit voit pas trop, mais en zoomant, on remarque que les externes répondent plus vite que les associés."
 
