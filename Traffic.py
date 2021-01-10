@@ -10,7 +10,7 @@ def weeklyTraffic (df) :
         data=[go.Bar(
             x=df_count.index,
             y=df_count)],
-        layout_title_text="nombre de mail envoyé en fonction du jour de la semaine"
+        layout_title_text="Nombre de mails envoyés en fonction du jour de la semaine"
     )
     return fig
 
@@ -21,7 +21,7 @@ def yearTraffic (df):
         data=[go.Bar(
             x=df_count.index,
             y=df_count)],
-        layout_title_text="nombre de mail envoyé en fonction de l'année"
+        layout_title_text="Nombre de mails envoyés en fonction de l'année"
     )
     return fig
 
@@ -33,7 +33,7 @@ def monthTraffic (df, year) :
         data=[go.Bar(
             x=df_count.index,
             y=df_count)],
-        layout_title_text="nombre de mail envoyé en fonction du mois de l'année sélectionnée"
+        layout_title_text="Nombre de mails envoyés en fonction du mois de l'année sélectionnée"
     )
     return fig
 
@@ -43,6 +43,6 @@ def hourTraffic (df) :
         data=[go.Bar(
             x=df_count.index,
             y=df_count)],
-        layout_title_text="nombre de mail envoyé en fonction de l'heure dans la journée"
+        layout_title_text="Nombre de mail envoyés en fonction de l'heure dans la journée"
     )
     return fig
