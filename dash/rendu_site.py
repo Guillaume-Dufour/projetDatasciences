@@ -9,8 +9,8 @@ import Traffic as Traffic
 import introduction as intro
 import anova_strenght_job as asj
 import anova_time_answer_job as ataj
+import afc_job_job as ajj
 import dash_table
-from brouillon.test2 import *
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -92,7 +92,7 @@ app.layout = html.Div([
 
         dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
             # html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()))
-            dcc.Graph(figure=test())
+            ajj.resultat
         ])
 
     ])

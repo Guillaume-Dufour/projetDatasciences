@@ -28,6 +28,16 @@ display_contingence_tab = {
     "Manager": []
 }
 
+for index, row in df.iterrows():
+    display_contingence_tab["job_sender/job_receiver"].append(index)
+    display_contingence_tab["Associate"].append(row[0])
+    display_contingence_tab["Employee"].append(row[1])
+    display_contingence_tab["Executive"].append(row[2])
+    display_contingence_tab["Manager"].append(row[3])
+
+display_contingence_frame = pandas.DataFrame(data=display_contingence_tab)
+
+
 ca = prince.CA(
     n_components=2,
     n_iter=3,
@@ -103,18 +113,13 @@ resultat = html.Div([
     html.P("tableau de contingence"),
     dash_table.DataTable(
         id='tab_contingence',
-        columns=[{"name": i, "id": i} for i in df.reset_index().columns],
-        data=df.reset_index().to_dict("records")
+        columns=[{"name": i, "id": i} for i in display_contingence_frame.columns],
+        data=display_contingence_frame.to_dict("records")
     ),
     dcc.Graph(figure=fig_eigen_value),
     dcc.Graph(figure=fig_afc)
 ])
 
-table = dash_table.DataTable(
-    id='tab_contingence',
-    columns=[{"name": i, "id": i} for i in df.reset_index().columns],
-    data=df.reset_index().to_dict("records"),
-)
 
 
 
