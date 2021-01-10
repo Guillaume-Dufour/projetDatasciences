@@ -2,7 +2,7 @@ from pandas import *
 import prince
 from plotly.express import scatter
 
-dataFrame = pandas.read_csv("../data/data_afc_job_job.csv", sep=",", low_memory=False)
+dataFrame = pandas.read_csv("../data_afc/data_afc_job_job.csv", sep=",", low_memory=False)
 
 X = "job_sender"
 Y = "job_receiver"
@@ -50,7 +50,8 @@ complete = pandas.DataFrame(data=d)
 
 fig = scatter(complete, x="dim1", y="dim2", text="name", color="type")
 fig.update_traces(textposition='top center')
-fig.show()
+# fig.show()
+
 
 ax = ca.plot_coordinates(
     X=df,
@@ -61,6 +62,11 @@ ax = ca.plot_coordinates(
     show_row_labels=True,
     show_col_labels=True
 )
+
+print(ca.eigenvalues_)
+print("ki2", ca.total_inertia_, len(dataFrame.index), ca.total_inertia_ * len(dataFrame.index))
+print("dim1", round(ca.eigenvalues_[0] / ca.total_inertia_, 3))
+print("dim2", round(ca.eigenvalues_[1] / ca.total_inertia_, 3))
 
 #fig = ax.get_figure()
 

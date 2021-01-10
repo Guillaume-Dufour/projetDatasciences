@@ -3,6 +3,7 @@ import prince
 from artist import plot
 from plotly.express import scatter
 
+
 dataFrame = pandas.read_csv("../data/data_constructed.csv", sep=",", low_memory=False)
 
 X = "hour"
