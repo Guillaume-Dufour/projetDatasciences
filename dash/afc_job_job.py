@@ -115,24 +115,71 @@ print("ki2", ca.total_inertia_, len(dataFrame.index), ca.total_inertia_ * len(da
 ki2 = ca.total_inertia_ * len(dataFrame.index)
 
 resultat = html.Div([
+
+    html.Br(),
+    html.P("Nous nous sommes aussi demandés si le poste dans l’entreprise  avait une influence sur les "
+           "personnes avec qui ils communiquent. Par exemple, nous voulions savoir si les personnes haut "
+           "placées communiquent plus avec des personnes extérieures à l’entreprise que les employés."),
+    html.Br(),
+    html.P(
+        "Pour vérifier cela, nous avons donc réalisé une Analyse Factorielle des Correspondances entre "
+        "le niveau de poste de l’expéditeur du mail et le niveau de poste du destinataire du mail. "
+        "Vous trouverez le tableau de contingence correspondant en annexe 6. Il faut savoir que nous "
+        "avons éliminé les mails envoyés entre 20h et 8h le lendemain afin d’éviter d’être pollué par les "
+        "mails automatiques (qui sont en présent en très grand nombre et indétectables lors de la "
+        "manipulation des données). Nous avons aussi remarqué qu’il y avait une grande quantité de mails "
+        "envoyés et reçus par des  externes (adresse mail qui n’a pas pour domaine enron.com), nous ne "
+        "savons pas comment ce genre de mail peuvent être présents dans les dossiers que nous avons "
+        "récupéré au départ et nous sommes conscients que leur omniprésence influe sur le résultat de l’AFC."),
     html.H5("tableau de contingence"),
     dash_table.DataTable(
         id='tab_contingence',
         columns=[{"name": i, "id": i} for i in display_contingence_frame.columns],
         data=display_contingence_frame.to_dict("records")
     ),
+
     html.H5("valeurs propres"),
     dash_table.DataTable(
         id='eigen_value',
         columns=[{"name": i, "id": i} for i in df_eigen_value.columns],
         data=df_eigen_value.to_dict("records")
     ),
+
+    html.P(" Nous avons, dans un premier temps, étudié la valeur du ki2 : "),
     html.H5("valeur du ki2"),
     html.P(str(ki2)),
+    html.P("Soit l’hypothèse H0 : les deux variables sont indépendantes. "
+           "Sous H0, la variable aléatoire du ki2 suit la loi du ki2 à (I - 1)(J - 1) (16 dans notre cas) "
+           "degré de liberté. On se fixe un risque d’erreur de première espèce de 5 %. "
+           "Ceci implique que le seuil est égal à 34.27. Nous avons la réalisation du ki2 = 8 872.79 > 34.27, "
+           "ce qui signifie que je réfute H0 avec un risque de première espèce de 5 %. "
+           "On conclut donc qu’il n’y a pas d’indépendance entre le niveau de poste de l’expéditeur du mail "
+           "et le niveau de poste du destinataire du mail."),
+
     html.H5("pourcentage de représentation des dimensions"),
     dcc.Graph(figure=fig_eigen_value),
+    html.P("Par la suite, nous avons effectué un mapping simultané des points lignes et colonnes. "
+           "Il était évident de ne faire qu’un graphique, portant sur la dimensions 1 et 2, "
+           "ces dernières représentant à elles deux plus de 99% de l’information concernant les résultats de l’AFC.  "
+           "Nous ne nous sommes pas attardés sur l’interprétation des graphiques séparés car l’interprétation "
+           "sur la dimension 1 (qui représente quasiment la totalité des informations de l’AFC) est identique "
+           "pour les deux (nous avons des niveaux de poste dans l’entreprise dans les deux cas). "
+           "Nous pouvons constater que la dimension 1 peut représenter une certaine hiérarchie entre les niveaux "
+           "de postes."),
+    html.Br(),
+    html.P("La librairie utilisée (Prince) ne nous permettait pas, à notre connaissance, "
+           "de retourner les contributions absolues et relatives de nos modalités. Ceci est dommage au "
+           "sens où nous aurions pu, de manière plus précise, analyser les dimensions ainsi que la qualité"
+           " de représentation des modalités sur les axes."),
+
     html.H5("AFC : analyse du poste du destinataire en fonction du post de l'expéditeur"),
-    dcc.Graph(figure=fig_afc)
+    dcc.Graph(figure=fig_afc),
+    html.P("Nous avons finalement pu conclure, après extraction de différents groupes, que chaque niveau "
+           "de poste parlait majoritairement entre eux et que les Exécutifs était légèrement exclus de la "
+           "communication avec les autres niveaux de poste. Cependant nous remarquons que les associés et "
+           "employés communiquent beaucoup entre eux et légèrement avec les managers. "
+           "Enfin, les externes communiquent majoritairement avec les associés, les employés et les managers "
+           "mais pas du tout avec l'exécutif.")
 ])
 
 
