@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import base64
 
 import dash
 import dash_html_components as html
@@ -18,14 +19,31 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 dataframe_constructed = pd.read_csv("../data/data_constructed.csv", sep=',', low_memory=False)
 
-# image_filename = '../brouillon/img2.png'
-# encoded_image = base64.b64encode(open(image_filename, 'rb').read())
+logo_ig = '../ressources/logoig.png'
+logo_popo = '../ressources/logopopo.png'
+encoded_ig = base64.b64encode(open(logo_ig, 'rb').read())
+encoded_popo = base64.b64encode(open(logo_popo, 'rb').read())
 
 app.layout = html.Div([
     dcc.Tabs([
         dcc.Tab(label='Introduction', children=[
+            html.Div(
+                html.Img(src='data:image/png;base64,{}'.format(encoded_ig.decode()),
+                         style={'height': '100px', 'width': '100px'}),
+                style={'width': '32%', 'display': 'inline-block'}
+            ),
+            html.Div(
+                html.H2("Projet data science"),
+                style={'width': '32%', 'display': 'inline-block', 'textAlign': 'center'}
+            ),
+            html.Div(
+                html.Img(src='data:image/png;base64,{}'.format(encoded_popo.decode()),
+                         style={'height': '100px', 'width': '100px'}),
+                style={'width': '32%', 'display': 'inline-block', 'textAlign': 'right'}
+            ),
             intro.introduction
         ]),
+
         dcc.Tab(label='Prise en main des données', children=[
             dcc.Tabs([
                 dcc.Tab(label="Par année", children=[
@@ -61,8 +79,6 @@ app.layout = html.Div([
             )
         ]),
 
-
-
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
             ataj.introduction,
 
@@ -91,7 +107,6 @@ app.layout = html.Div([
         ]),
 
         dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
-            # html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()))
             ajj.resultat
         ])
 

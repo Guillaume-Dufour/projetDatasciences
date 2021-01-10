@@ -6,7 +6,7 @@ from plotly.express import bar
 import dash_html_components as html
 import dash_core_components as dcc
 
-dataFrame = pandas.read_csv("../data/data_afc_job_job.csv", sep=",", low_memory=False)
+dataFrame = pandas.read_csv("../data/data_afc_job_job_extern_final.csv", sep=",", low_memory=False)
 
 X = "job_sender"
 Y = "job_receiver"
@@ -20,11 +20,14 @@ df = pandas.DataFrame(
     index=pandas.Series(cont.index.values)
 )
 
+print(df)
+
 display_contingence_tab = {
     "job_sender/job_receiver": [],
     "Associate":[],
     "Employee": [],
     "Executive": [],
+    "Extern": [],
     "Manager": []
 }
 
@@ -33,7 +36,8 @@ for index, row in df.iterrows():
     display_contingence_tab["Associate"].append(row[0])
     display_contingence_tab["Employee"].append(row[1])
     display_contingence_tab["Executive"].append(row[2])
-    display_contingence_tab["Manager"].append(row[3])
+    display_contingence_tab["Extern"].append(row[3])
+    display_contingence_tab["Manager"].append(row[4])
 
 display_contingence_frame = pandas.DataFrame(data=display_contingence_tab)
 
@@ -72,10 +76,13 @@ for index, c in column.iterrows():
 complete = pandas.DataFrame(data=d)
 
 eigen_value = {
+    "value": [],
     "dim": [],
     "percentage": []
 }
 
+eigen_value["value"].append(ca.eigenvalues_[0])
+eigen_value["value"].append(ca.eigenvalues_[1])
 eigen_value["dim"].append("1")
 eigen_value["dim"].append("2")
 eigen_value["percentage"].append(round(ca.eigenvalues_[0] / ca.total_inertia_, 3)*100)
@@ -88,11 +95,10 @@ fig_afc = scatter(complete, x="dim1", y="dim2", text="name", color="type",
                      "dim1": "dim 1 : ( " + str(df_eigen_value['percentage'][0]) + "%)",
                      "dim2": "dim 2 : ( " + str(df_eigen_value['percentage'][1]) + "%)",
                      "type": ""
-                 },
-                  title="AFC : analyse du poste du destinataire en fonction du poste de l'expéditeur")
+                 })
 fig_afc.update_traces(textposition='top center')
 
-fig_eigen_value = bar(df_eigen_value, x='dim', y='percentage', title="pourcentage de représentation des dimensions")
+fig_eigen_value = bar(df_eigen_value, x='dim', y='percentage')
 
 ax = ca.plot_coordinates(
     X=df,
@@ -106,17 +112,23 @@ ax = ca.plot_coordinates(
 
 print(ca.eigenvalues_)
 print("ki2", ca.total_inertia_, len(dataFrame.index), ca.total_inertia_ * len(dataFrame.index))
-print("dim1", round(ca.eigenvalues_[0] / ca.total_inertia_, 3))
-print("dim2", round(ca.eigenvalues_[1] / ca.total_inertia_, 3))
-print(cont)
+
 resultat = html.Div([
-    html.P("tableau de contingence"),
+    html.H5("tableau de contingence"),
     dash_table.DataTable(
         id='tab_contingence',
         columns=[{"name": i, "id": i} for i in display_contingence_frame.columns],
         data=display_contingence_frame.to_dict("records")
     ),
+    html.H5("valeurs propres"),
+    dash_table.DataTable(
+        id='eigen_value',
+        columns=[{"name": i, "id": i} for i in df_eigen_value.columns],
+        data=df_eigen_value.to_dict("records")
+    ),
+    html.H5("pourcentage de représentation des dimensions"),
     dcc.Graph(figure=fig_eigen_value),
+    html.H5("AFC : analyse du poste du destinataire en fonction du post de l'expéditeur"),
     dcc.Graph(figure=fig_afc)
 ])
 
