@@ -29,9 +29,15 @@ app.layout = html.Div([
         dcc.Tab(label='Prise en main des données', children=[
             dcc.Tabs([
                 dcc.Tab(label="Par année", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="year", figure=Traffic.yearTraffic(dataframe_constructed))
                 ]),
                 dcc.Tab(label="Par mois", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="month"),
                     dcc.Slider(
                         id='year_slider',
@@ -43,12 +49,22 @@ app.layout = html.Div([
                     )
                 ]),
                 dcc.Tab(label="Par jour de la semaine", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="weekday", figure=Traffic.weeklyTraffic(dataframe_constructed))
                 ]),
                 dcc.Tab(label="Par heure de la journée", children=[
+                    dcc.Tab(label='Introduction', children=[
+                        Traffic.introduction
+                    ]),
                     dcc.Graph(id="hour", figure=Traffic.hourTraffic(dataframe_constructed))
                 ])
-            ])
+
+            ]),
+            dcc.Tab(label='Conclusion', children=[
+                Traffic.conclusion
+            ]),
         ]),
 
         dcc.Tab(label='Analyse du nombre de mails en fonction du poste', children=[
@@ -60,8 +76,6 @@ app.layout = html.Div([
                 data=asj.anova_table.reset_index().to_dict("records")
             )
         ]),
-
-
 
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
             ataj.introduction,

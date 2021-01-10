@@ -5,11 +5,27 @@ from pandas import *
 import dash_html_components as html
 
 introduction = html.Div([
-    html.Div("Dans un premier temps, nous avons réalisé des graphiques afin de visualiser le nombre de mails envoyés "
-             "par jour de la semaine, par heure, par mois d’une année et enfin par année. Cela nous a permis de "
-             "supprimer les mails dont les dates sont  avant 1999 et après 2003 car ils n’étaient pas exploitables ("
-             "trop peu nombreux, mails souvent automatiques…)."
-             ),
+    html.Div(
+        html.P(
+            "Dans un premier temps, nous avons réalisé des graphiques afin de visualiser le nombre de mails envoyés "
+            "par jour de la semaine, par heure, par mois d’une année et enfin par année. Cela nous a permis de "
+            "supprimer les mails dont les dates sont  avant 1999 et après 2003 car ils n’étaient pas exploitables ("
+            "trop peu nombreux, mails souvent automatiques…).",
+            style={'marginBottom': 20, 'marginTop': 20}
+        )
+    )
+])
+
+conclusion = html.Div([
+    html.Div(
+        html.P(
+            "On a ensuite voulu regarder s' il y avait des heures/jours où on envoyait plus d’email que d’autres. Sans "
+            "surprise on s’est rendu compte que les employés envoient des emails uniformément durant leur heures/jours de "
+            "travail. Cela nous a aussi permis de nous rendre compte que nos dates n’étaient pas toutes dans le même "
+            "fuseau horaire. ",
+            style={'marginBottom': 20}
+        )
+    )
 ])
 
 
