@@ -12,6 +12,7 @@ import anova_strenght_job as asj
 import anova_time_answer_job as ataj
 import afc_job_job as ajj
 import dash_table
+import conclusion as ccl
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -133,6 +134,10 @@ app.layout = html.Div([
 
         dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
             ajj.resultat
+        ]),
+
+        dcc.Tab(label="Conclusion", children=[
+            ccl.content
         ])
 
     ])
