@@ -146,12 +146,12 @@ resultat = html.Div([
     ),
 
     html.P(" Nous avons, dans un premier temps, étudié la valeur du ki2 : "),
-    html.H5("valeur du ki2"),
-    html.P(str(ki2)),
+    html.H5("valeur du χ²"),
+    html.P("χ² = "+str(ki2)),
     html.P("Soit l’hypothèse H0 : les deux variables sont indépendantes. "
-           "Sous H0, la variable aléatoire du ki2 suit la loi du ki2 à (I - 1)(J - 1) (16 dans notre cas) "
+           "Sous H0, la variable aléatoire du χ² suit la loi du χ² à (I - 1)(J - 1) (16 dans notre cas) "
            "degré de liberté. On se fixe un risque d’erreur de première espèce de 5 %. "
-           "Ceci implique que le seuil est égal à 34.27. Nous avons la réalisation du ki2 = 8 872.79 > 34.27, "
+           "Ceci implique que le seuil est égal à 34.27. Nous avons la réalisation du χ² = 8 872.79 > 34.27, "
            "ce qui signifie que je réfute H0 avec un risque de première espèce de 5 %. "
            "On conclut donc qu’il n’y a pas d’indépendance entre le niveau de poste de l’expéditeur du mail "
            "et le niveau de poste du destinataire du mail."),
