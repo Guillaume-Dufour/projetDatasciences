@@ -77,7 +77,10 @@ introduction = html.Div([
             style={'marginBottom': 20}
         ),
         html.P(
-            "Nous avons aussi trouvé une librairie sur R contenant la description des jobs avec le nom des personnes correspondant, que nous avons fusionné avec notre csv contenant toutes les données. Pour ce qui est du job 'externe' nous avons réalisé un algorithme qui récupère tous ceux qui n’ont pas une adresse mail contenant “@enron”."
+            "Nous avons aussi trouvé une librairie sur R contenant la description des jobs avec le nom des personnes "
+            "correspondant, que nous avons fusionné avec notre csv contenant toutes les données. Pour ce qui est du "
+            "job 'externe' nous avons réalisé un algorithme qui récupère tous ceux qui n’ont pas une adresse mail "
+            "contenant “@enron”. "
         )
     ])
 ])

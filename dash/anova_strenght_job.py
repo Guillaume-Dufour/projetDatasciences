@@ -8,7 +8,8 @@ introduction = html.Div([
     html.H4("Anova nombre de mails reçus et envoyés en fonction du poste"),
     html.Br(),
     html.Div("Nous nous sommes ensuite demandé si le poste occupé avait une incidence sur le nombre de mails envoyés. "
-             "Par exemple, les employés envoient plus de mails que les personnes haut placées. Le boxplot ci-dessous ne nous permet pas à première vue de mettre en évidence de lien entre le nombre de mails "
+             "Par exemple, les employés envoient plus de mails que les personnes haut placées. Le boxplot ci-dessous "
+             "ne nous permet pas à première vue de mettre en évidence de lien entre le nombre de mails "
              "envoyés et le poste des employés, en effet les moyennes ont l’air sensiblement égales. ",
              style={'marginBottom': 30}
              ),
@@ -48,7 +49,8 @@ analyse = html.Div([
            "d’erreur de première espèce de 5 %. Nous avons la pvalue = 0.480406 ce qui est supérieur à 5%, "
            "nous ne rejetons donc pas H0. Nous n’avons donc pas mis en évidence de lien entre le poste et le nombre "
            "de mails reçus et envoyés."),
-    html.P("Finalement, cette Anova nous a permis de confirmer qu’il n’y avait pas de lien entre le poste et le nombre de mails envoyés et le poste de l'employé.")
+    html.P("Finalement, cette Anova nous a permis de confirmer qu’il n’y avait pas de lien entre le poste et le "
+           "nombre de mails envoyés et le poste de l'employé.")
 
 ])
 

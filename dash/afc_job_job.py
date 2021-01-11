@@ -120,7 +120,14 @@ resultat = html.Div([
            "placées communiquent plus avec des personnes extérieures à l’entreprise que les employés."),
     html.Br(),
     html.P(
-        "Pour vérifier cela, nous avons donc réalisé une Analyse Factorielle des Correspondances entre le niveau de poste de l’expéditeur du mail et le niveau de poste du destinataire du mail. Il faut savoir que nous avons éliminé les mails envoyés entre 20h et 8h le lendemain afin d’éviter d’être pollué par les mails automatiques (qui sont présents en très grand nombre et nous n’avons pas pour but de créer un algorithme capable de les identifier dans le cadre de ce projet). Nous avons aussi remarqué qu’il y avait une grande quantité de mails envoyés et reçus par des  externes (adresse mail qui n’a pas pour domaine enron.com), nous ne savons pas comment ce genre de mail peuvent être présents dans les dossiers que nous avons récupéré au départ et nous sommes conscients que leur omniprésence influe sur le résultat de l’AFC."),
+        "Pour vérifier cela, nous avons donc réalisé une Analyse Factorielle des Correspondances entre le niveau de "
+        "poste de l’expéditeur du mail et le niveau de poste du destinataire du mail. Il faut savoir que nous avons "
+        "éliminé les mails envoyés entre 20h et 8h le lendemain afin d’éviter d’être pollué par les mails "
+        "automatiques (qui sont présents en très grand nombre et nous n’avons pas pour but de créer un algorithme "
+        "capable de les identifier dans le cadre de ce projet). Nous avons aussi remarqué qu’il y avait une grande "
+        "quantité de mails envoyés et reçus par des  externes (adresse mail qui n’a pas pour domaine enron.com), "
+        "nous ne savons pas comment ce genre de mail peuvent être présents dans les dossiers que nous avons récupéré "
+        "au départ et nous sommes conscients que leur omniprésence influe sur le résultat de l’AFC."),
     html.P("tableau de contingence",
            style={'text-decoration': 'underline', 'text-align': 'center'}),
     dash_table.DataTable(
@@ -169,7 +176,11 @@ resultat = html.Div([
     html.P("AFC : analyse du poste du destinataire en fonction du post de l'expéditeur",
            style={'text-decoration': 'underline', 'text-align': 'center'}),
     dcc.Graph(figure=fig_afc),
-    html.P("Nous avons finalement pu conclure, après extraction de différents groupes, que les personnes appartenant au même type de poste parlaient majoritairement entre elles et que les Exécutifs était légèrement exclus de la communication avec les autres niveaux de poste. Cependant nous remarquons que les associés et les employés communiquent beaucoup entre eux et peu avec les managers. Enfin, les externes communiquent majoritairement avec les associés, les employés et les managers mais pas du tout avec l'exécutif.")
+    html.P("Nous avons finalement pu conclure, après extraction de différents groupes, que les personnes appartenant "
+           "au même type de poste parlaient majoritairement entre elles et que les Exécutifs était légèrement exclus "
+           "de la communication avec les autres niveaux de poste. Cependant nous remarquons que les associés et les "
+           "employés communiquent beaucoup entre eux et peu avec les managers. Enfin, les externes communiquent "
+           "majoritairement avec les associés, les employés et les managers mais pas du tout avec l'exécutif.")
 ])
 
 
