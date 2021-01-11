@@ -5,7 +5,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 import pandas as pd
 from dash.dependencies import Input, Output
-import Traffic as Traffic
+import traffic as traffic
 import introduction as intro
 import anova_strenght_job as asj
 import anova_time_answer_job as ataj
@@ -29,7 +29,7 @@ app.layout = html.Div([
         dcc.Tab(label='Prise en main des données', children=[
             dcc.Tabs([
                 dcc.Tab(label="Par année", children=[
-                    dcc.Graph(id="year", figure=Traffic.yearTraffic(dataframe_constructed))
+                    dcc.Graph(id="year", figure=traffic.year_traffic(dataframe_constructed))
                 ]),
                 dcc.Tab(label="Par mois", children=[
                     dcc.Graph(id="month"),
@@ -43,10 +43,10 @@ app.layout = html.Div([
                     )
                 ]),
                 dcc.Tab(label="Par jour de la semaine", children=[
-                    dcc.Graph(id="weekday", figure=Traffic.weeklyTraffic(dataframe_constructed))
+                    dcc.Graph(id="weekday", figure=traffic.weekly_traffic(dataframe_constructed))
                 ]),
                 dcc.Tab(label="Par heure de la journée", children=[
-                    dcc.Graph(id="hour", figure=Traffic.hourTraffic(dataframe_constructed))
+                    dcc.Graph(id="hour", figure=traffic.hour_traffic(dataframe_constructed))
                 ])
             ])
         ]),
@@ -103,8 +103,8 @@ app.layout = html.Div([
     Output('month', 'figure'),
     Input('year_slider', 'value'))
 def update_graph(year_slider):
-    fig = Traffic.monthTraffic(dataframe_constructed, year_slider)
+    fig = traffic.month_traffic(dataframe_constructed, year_slider)
     return fig
 
 
-app.run_server(debug=True)
+app.run_server(debug=False)

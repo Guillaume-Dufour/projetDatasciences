@@ -10,7 +10,7 @@ introduction = html.Div([
 ])
 
 
-def weeklyTraffic(df):
+def weekly_traffic(df):
     x = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     df_count = df.groupby(['weekDay']).size().reindex(x)
     fig = go.Figure(
@@ -22,7 +22,7 @@ def weeklyTraffic(df):
     return fig
 
 
-def yearTraffic(df):
+def year_traffic(df):
     df_count = df.groupby(df['year']).size()
     print(df_count)
     fig = go.Figure(
@@ -34,7 +34,7 @@ def yearTraffic(df):
     return fig
 
 
-def monthTraffic(df, year):
+def month_traffic(df, year):
     x = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November",
          "December"]
     dfFiltered = df.drop(df[df.year != year].index)
@@ -48,7 +48,7 @@ def monthTraffic(df, year):
     return fig
 
 
-def hourTraffic(df):
+def hour_traffic(df):
     df_count = df.groupby(df['hour']).size()
     fig = go.Figure(
         data=[go.Bar(
