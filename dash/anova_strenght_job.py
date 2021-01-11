@@ -12,6 +12,8 @@ introduction = html.Div([
              "en fonction du poste")
 ])
 
+print("... ouverture data_constructed_job.csv en cours ...")
+print("... anova strenght job en cours")
 dataFrame = pd.read_csv("../data/data_constructed_job.csv", sep=",", low_memory=False)
 
 fig = px.box(dataFrame, x='JobLevel', y='strength')

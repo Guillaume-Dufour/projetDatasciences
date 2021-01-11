@@ -17,6 +17,8 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+print("... ouverture data_constructed.csv en cours ...")
+print("... chargement du site en cours ...")
 dataframe_constructed = pd.read_csv("../data/data_constructed.csv", sep=',', low_memory=False)
 
 logo_ig = '../ressources/logoig.png'

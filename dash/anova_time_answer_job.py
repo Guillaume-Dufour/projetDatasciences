@@ -19,6 +19,8 @@ introduction = html.Div([
        )
 ])
 
+print("... ouverture data_annova_job_time_response.csv en cours ...")
+print("... anova time answer job en cours")
 dataFrame = pd.read_csv("../data/data_annova_job_time_response.csv", sep=",", low_memory=False)
 
 # First diagram, without removing any value
