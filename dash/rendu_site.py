@@ -92,7 +92,10 @@ app.layout = html.Div([
             asj.titleBoxPlot,
             dcc.Graph(figure=asj.fig),
 
+            asj.introAnova,
+
             asj.titleTabAnova,
+
             dash_table.DataTable(
                 id='first_result',
                 columns=[{"name": i, "id": i} for i in asj.anova_table.reset_index().columns],
