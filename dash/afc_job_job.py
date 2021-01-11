@@ -6,7 +6,7 @@ from plotly.express import bar
 import dash_html_components as html
 import dash_core_components as dcc
 
-dataFrame = pandas.read_csv("../data/data_afc_job_job.csv", sep=",", low_memory=False)
+dataFrame = pandas.read_csv("../data/data_afc_job_job_extern_final.csv", sep=",", low_memory=False)
 
 X = "job_sender"
 Y = "job_receiver"
