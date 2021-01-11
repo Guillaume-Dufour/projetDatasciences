@@ -75,6 +75,9 @@ introduction = html.Div([
             "Nous avons aussi calculé le temps de réponse pour chaque mail qui est une réponse (mail dont le corps "
             "contient le texte suivant : “-Original Message-”) afin de pouvoir l’analyser.",
             style={'marginBottom': 20}
+        ),
+        html.P(
+            "Nous avons aussi trouvé une librairie sur R contenant la description des jobs avec le nom des personnes correspondant, que nous avons fusionné avec notre csv contenant toutes les données. Pour ce qui est du job 'externe' nous avons réalisé un algorithme qui récupère tous ceux qui n’ont pas une adresse mail contenant “@enron”."
         )
     ])
 ])

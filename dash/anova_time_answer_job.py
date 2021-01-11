@@ -88,8 +88,7 @@ analyseAnova1 = html.Div([
         "temps de réponse.",
     ),
     html.P(
-        "Cependant, nous avons remarqué que beaucoup de personnes (~ 250) mettent plus d’un mois à répondre, "
-        "ce qui nous semble très bizarre.",
+        "Cependant, nous avons remarqué que beaucoup de personnes (~ 250) mettent plus d’un mois à répondre, ce qui nous semble très bizarre. Nous avons donc décidé de refaire une anova sans ces données pour prendre en compte seulement celles réalistes (voir annexe 5). Cette fois-ci, nous avons montré un lien avec le temps de réponse et le poste de l’employé. Maintenant, si nous regardons le boxplot (annexe 5), cela ne se voit pas énormément, mais en zoomant, nous remarquons que les externes répondent plus vite que les associés.",
         style={'marginBottom': 20}
     ),
     html.P(

@@ -12,6 +12,7 @@ import anova_strenght_job as asj
 import anova_time_answer_job as ataj
 import afc_job_job as ajj
 import dash_table
+import conclusion as ccl
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -89,12 +90,21 @@ app.layout = html.Div([
 
         dcc.Tab(label='Analyse du nombre de mails en fonction du poste', children=[
             asj.introduction,
+
+            asj.titleBoxPlot,
             dcc.Graph(figure=asj.fig),
+
+            asj.introAnova,
+
+            asj.titleTabAnova,
+
             dash_table.DataTable(
                 id='first_result',
                 columns=[{"name": i, "id": i} for i in asj.anova_table.reset_index().columns],
                 data=asj.anova_table.reset_index().to_dict("records")
-            )
+            ),
+
+            asj.analyse
         ]),
 
         dcc.Tab(label="Analyse du temps de réponse à un mail reçu en fonction du poste de l'expéditeur", children=[
@@ -129,6 +139,10 @@ app.layout = html.Div([
 
         dcc.Tab(label="Analyse du poste du destinataire en fonction du poste de l'expéditeur", children=[
             ajj.resultat
+        ]),
+
+        dcc.Tab(label="Conclusion", children=[
+            ccl.content
         ])
 
     ])

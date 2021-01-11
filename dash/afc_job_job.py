@@ -6,8 +6,6 @@ from plotly.express import bar
 import dash_html_components as html
 import dash_core_components as dcc
 
-print("... ouverture data_afc_afc_job_job_extern_final.csv en cours ...")
-print("... afc job job en cours ...")
 dataFrame = pandas.read_csv("../data/data_afc_job_job_extern_final.csv", sep=",", low_memory=False)
 
 X = "job_sender"
@@ -21,6 +19,8 @@ df = pandas.DataFrame(
     columns=pandas.Series(cont.columns.values),
     index=pandas.Series(cont.index.values)
 )
+
+print(df)
 
 display_contingence_tab = {
     "job_sender/job_receiver": [],
@@ -110,6 +110,8 @@ ax = ca.plot_coordinates(
     show_col_labels=True
 )
 
+print(ca.eigenvalues_)
+print("ki2", ca.total_inertia_, len(dataFrame.index), ca.total_inertia_ * len(dataFrame.index))
 ki2 = ca.total_inertia_ * len(dataFrame.index)
 
 resultat = html.Div([
@@ -120,25 +122,15 @@ resultat = html.Div([
            "placées communiquent plus avec des personnes extérieures à l’entreprise que les employés."),
     html.Br(),
     html.P(
-        "Pour vérifier cela, nous avons donc réalisé une Analyse Factorielle des Correspondances entre "
-        "le niveau de poste de l’expéditeur du mail et le niveau de poste du destinataire du mail. "
-        "Vous trouverez le tableau de contingence correspondant en annexe 6. Il faut savoir que nous "
-        "avons éliminé les mails envoyés entre 20h et 8h le lendemain afin d’éviter d’être pollué par les "
-        "mails automatiques (qui sont en présent en très grand nombre et indétectables lors de la "
-        "manipulation des données). Nous avons aussi remarqué qu’il y avait une grande quantité de mails "
-        "envoyés et reçus par des  externes (adresse mail qui n’a pas pour domaine enron.com), nous ne "
-        "savons pas comment ce genre de mail peuvent être présents dans les dossiers que nous avons "
-        "récupéré au départ et nous sommes conscients que leur omniprésence influe sur le résultat de l’AFC."),
-    html.P("tableau de contingence",
-           style={'text-decoration': 'underline', 'text-align': 'center'}),
+        "Pour vérifier cela, nous avons donc réalisé une Analyse Factorielle des Correspondances entre le niveau de poste de l’expéditeur du mail et le niveau de poste du destinataire du mail. Il faut savoir que nous avons éliminé les mails envoyés entre 20h et 8h le lendemain afin d’éviter d’être pollué par les mails automatiques (qui sont présents en très grand nombre et nous n’avons pas pour but de créer un algorithme capable de les identifier dans le cadre de ce projet). Nous avons aussi remarqué qu’il y avait une grande quantité de mails envoyés et reçus par des  externes (adresse mail qui n’a pas pour domaine enron.com), nous ne savons pas comment ce genre de mail peuvent être présents dans les dossiers que nous avons récupéré au départ et nous sommes conscients que leur omniprésence influe sur le résultat de l’AFC."),
+    html.H5("tableau de contingence"),
     dash_table.DataTable(
         id='tab_contingence',
         columns=[{"name": i, "id": i} for i in display_contingence_frame.columns],
         data=display_contingence_frame.to_dict("records")
     ),
 
-    html.P("valeurs propres",
-           style={'text-decoration': 'underline', 'text-align': 'center'}),
+    html.H5("valeurs propres"),
     dash_table.DataTable(
         id='eigen_value',
         columns=[{"name": i, "id": i} for i in df_eigen_value.columns],
@@ -146,19 +138,17 @@ resultat = html.Div([
     ),
 
     html.P(" Nous avons, dans un premier temps, étudié la valeur du ki2 : "),
-    html.P("valeur du ki2",
-           style={'text-decoration': 'underline', 'text-align': 'center'}),
-    html.P(str(ki2)),
+    html.H5("valeur du χ²"),
+    html.P("χ² = "+str(ki2)),
     html.P("Soit l’hypothèse H0 : les deux variables sont indépendantes. "
-           "Sous H0, la variable aléatoire du ki2 suit la loi du ki2 à (I - 1)(J - 1) (16 dans notre cas) "
+           "Sous H0, la variable aléatoire du χ² suit la loi du χ² à (I - 1)(J - 1) (16 dans notre cas) "
            "degré de liberté. On se fixe un risque d’erreur de première espèce de 5 %. "
-           "Ceci implique que le seuil est égal à 34.27. Nous avons la réalisation du ki2 = 8 872.79 > 34.27, "
+           "Ceci implique que le seuil est égal à 34.27. Nous avons la réalisation du χ² = 8 872.79 > 34.27, "
            "ce qui signifie que je réfute H0 avec un risque de première espèce de 5 %. "
            "On conclut donc qu’il n’y a pas d’indépendance entre le niveau de poste de l’expéditeur du mail "
            "et le niveau de poste du destinataire du mail."),
 
-    html.P("pourcentage de représentation des dimensions",
-           style={'text-decoration': 'underline', 'text-align': 'center'}),
+    html.H5("pourcentage de représentation des dimensions"),
     dcc.Graph(figure=fig_eigen_value),
     html.P("Par la suite, nous avons effectué un mapping simultané des points lignes et colonnes. "
            "Il était évident de ne faire qu’un graphique, portant sur la dimensions 1 et 2, "
@@ -174,15 +164,9 @@ resultat = html.Div([
            "sens où nous aurions pu, de manière plus précise, analyser les dimensions ainsi que la qualité"
            " de représentation des modalités sur les axes."),
 
-    html.P("AFC : analyse du poste du destinataire en fonction du post de l'expéditeur",
-           style={'text-decoration': 'underline', 'text-align': 'center'}),
+    html.H5("AFC : analyse du poste du destinataire en fonction du post de l'expéditeur"),
     dcc.Graph(figure=fig_afc),
-    html.P("Nous avons finalement pu conclure, après extraction de différents groupes, que chaque niveau "
-           "de poste parlait majoritairement entre eux et que les Exécutifs était légèrement exclus de la "
-           "communication avec les autres niveaux de poste. Cependant nous remarquons que les associés et "
-           "employés communiquent beaucoup entre eux et légèrement avec les managers. "
-           "Enfin, les externes communiquent majoritairement avec les associés, les employés et les managers "
-           "mais pas du tout avec l'exécutif.")
+    html.P("Nous avons finalement pu conclure, après extraction de différents groupes, que les personnes appartenant au même type de poste parlaient majoritairement entre elles et que les Exécutifs était légèrement exclus de la communication avec les autres niveaux de poste. Cependant nous remarquons que les associés et les employés communiquent beaucoup entre eux et peu avec les managers. Enfin, les externes communiquent majoritairement avec les associés, les employés et les managers mais pas du tout avec l'exécutif.")
 ])
 
 
