@@ -9,7 +9,7 @@ data_csv = "data/data_constructed.csv"
 
 
 def create_response_csv(csv_in):
-    substring = "-Original Message-"
+    substring = "-Original Message-"  # permet de savoir que le mail est une réponse
 
     df = pandas.read_csv(csv_in, sep=",", low_memory=False)
     df = df.dropna(subset=['content'])
@@ -23,16 +23,16 @@ def hour(str_hour, part):
 
     hour = int(hour_split[0])
 
-    if part.__contains__("P"):
+    if part.__contains__("P"):  # pm -> l'après midi
         hour += 12
         hour %= 24
 
     hour_str = "0" + str(hour) if len(str(hour)) == 1 else str(hour)
 
-    return hour_str + ":" + hour_split[1] + ":00"
+    return hour_str + ":" + hour_split[1] + ":00"  # récup les minutes et secondes tj :00
 
 
-def calcul_data_response(content):
+def calcul_data_response(content): #calculer date de réponse
     nb_errors = 0
 
     try:
@@ -42,7 +42,7 @@ def calcul_data_response(content):
 
         date = string_split2[0][0:-1].strip()
 
-        if len(date) < 45:
+        if len(date) < 45: #45 pire cas date en lettre
             if date.__contains__("/"):
                 infos = re.split("[ /]", date)
                 return infos[3] + "-" + two_digit_string(infos[1]) + "-" + two_digit_string(infos[2]) + " " + hour(
@@ -55,7 +55,7 @@ def calcul_data_response(content):
         nb_errors += 1
 
 
-def insert_date_original_message_response(csv_in):
+def insert_date_original_message_response(csv_in): #creer colonne date réponse
     df = pandas.read_csv(csv_in, sep=",", low_memory=False)
 
     df["date_original_message"] = df["content"].apply(lambda line: calcul_data_response(line))
@@ -63,7 +63,7 @@ def insert_date_original_message_response(csv_in):
     df.to_csv("data/data_response_V2.csv", index=False)
 
 
-def nb_seconds(date_end, date_begin):
+def nb_seconds(date_end, date_begin): #calculer tps réponse en secondes
     nb_errors = 0
 
     try:
@@ -73,14 +73,14 @@ def nb_seconds(date_end, date_begin):
         nb_errors += 1
 
 
-def calcul_time_response_csv(csv_in):
+def calcul_time_response_csv(csv_in): #ajouter colonne tps réponse
     df = pandas.read_csv(csv_in, sep=",", low_memory=False)
     df = df.dropna(subset=['date_original_message'])
     df['time_response'] = df.apply(lambda row: nb_seconds(row.date, row.date_original_message), axis=1)
     df.to_csv("data/data_time_response.csv", index=False)
 
 
-def filter_time_response(df):
+def filter_time_response(df): #filtrer exeption tps <0
     return df[df["time_response"] >= 0]
 
 
@@ -96,6 +96,7 @@ d = {
     "job_answerer": [],
     "time_response": []
 }
+
 
 for index, row in df_mail.iterrows():
 

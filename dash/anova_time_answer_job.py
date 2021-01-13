@@ -35,8 +35,7 @@ analyseDiagramme = html.Div([
         "En regardant ce diagramme, on a l’impression que les managers répondent plus vite. "
         "On remarque aussi que l’un des employés met beaucoup plus de temps à répondre (1 400 heures), "
         "ainsi qu’un externe (> 5 000 heures). Nous avons donc décidé de l’enlever des données avant de "
-        "faire l’analyse. Nous avons donc réalisé une anova (voir annexe 4), celle-ci nous a montré que "
-        "le poste n’influait pas sur le temps de réponse.",
+        "faire l’analyse.",
         style={'marginBottom': 20}
     ),
     html.P(
@@ -89,10 +88,7 @@ analyseAnova1 = html.Div([
     ),
     html.P(
         "Cependant, nous avons remarqué que beaucoup de personnes (~ 250) mettent plus d’un mois à répondre, "
-        "ce qui nous semble très bizarre. Nous avons donc décidé de refaire une anova sans ces données pour prendre "
-        "en compte seulement celles réalistes (voir annexe 5). Cette fois-ci, nous avons montré un lien avec le temps "
-        "de réponse et le poste de l’employé. Maintenant, si nous regardons le boxplot (annexe 5), cela ne se voit "
-        "pas énormément, mais en zoomant, nous remarquons que les externes répondent plus vite que les associés.",
+        "ce qui nous semble très bizarre.",
         style={'marginBottom': 20}
     ),
     html.P(
@@ -139,7 +135,7 @@ conclusion = html.Div([
         "donc H0 et nous concluons que le niveau du poste dans l’entreprise à une influence sur le temps de "
         "réponse d’une personne à un mail."),
     html.P(
-        "Maintenant, si nous regardons le boxplot (annexe 5), cela ne se voit pas énormément, "
+        "Maintenant, si nous regardons le boxplot, cela ne se voit pas énormément, "
         "mais en zoomant, nous remarquons que les externes répondent plus vite que les associés."
 
     )

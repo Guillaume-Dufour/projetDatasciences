@@ -30,20 +30,25 @@ encoded_popo = base64.b64encode(open(logo_popo, 'rb').read())
 app.layout = html.Div([
     dcc.Tabs([
         dcc.Tab(label='Introduction', children=[
+
+            #afficher images ig
             html.Div(
                 html.Img(src='data:image/png;base64,{}'.format(encoded_ig.decode()),
                          style={'height': '100px', 'width': '100px'}),
                 style={'width': '32%', 'display': 'inline-block'}
             ),
+
             html.Div(
                 html.H2("Projet data science"),
                 style={'width': '32%', 'display': 'inline-block', 'textAlign': 'center'}
             ),
+            # afficher images polytech
             html.Div(
                 html.Img(src='data:image/png;base64,{}'.format(encoded_popo.decode()),
                          style={'height': '100px', 'width': '100px'}),
                 style={'width': '32%', 'display': 'inline-block', 'textAlign': 'right'}
             ),
+            #data a afficher
             intro.introduction
         ]),
 
@@ -92,7 +97,7 @@ app.layout = html.Div([
             asj.introduction,
 
             asj.titleBoxPlot,
-            dcc.Graph(figure=asj.fig),
+            dcc.Graph(figure=asj.fig), #fig boxplot dans fichier asj
 
             asj.introAnova,
 

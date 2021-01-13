@@ -22,6 +22,7 @@ df = pandas.DataFrame(
     index=pandas.Series(cont.index.values)
 )
 
+#afficher tab contingence
 display_contingence_tab = {
     "job_sender/job_receiver": [],
     "Associate":[],
@@ -42,6 +43,7 @@ for index, row in df.iterrows():
 display_contingence_frame = pandas.DataFrame(data=display_contingence_tab)
 
 
+#CA = AFC
 ca = prince.CA(
     n_components=2,
     n_iter=3,
@@ -58,7 +60,7 @@ d = {
     "name": [],
     "dim1": [],
     "dim2": [],
-    "type": []
+    "type": [] #sender / receiver
 }
 
 for index, r in row.iterrows():

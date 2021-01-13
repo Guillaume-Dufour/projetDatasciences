@@ -58,7 +58,9 @@ print("... ouverture data_constructed_job.csv en cours ...")
 print("... anova strenght job en cours")
 dataFrame = pd.read_csv("../data/data_constructed_job.csv", sep=",", low_memory=False)
 
+#pour boxplot
 fig = px.box(dataFrame, x='JobLevel', y='strength')
 
+#pour anova
 model = ols('strength ~ JobLevel', data=dataFrame).fit()
 anova_table = sm.stats.anova_lm(model, typ=2)
